@@ -1,0 +1,340 @@
+{
+	"info": {
+		"_postman_id": "935aeb63-4f5c-4777-af6e-1c95fe945663",
+		"name": "JSON-Place-Holder",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 [Regression]\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Shoult Return 100 Results [Data Validation]\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.length).to.eql(100);",
+							"});",
+							"",
+							"tv4.addSchema(\"http://jsonplaceholder.typicode.com/posts/schema\", {",
+							"\t\"definitions\": {",
+							"\t\t\"commentItems\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\", \"postId\", \"name\", \"email\", \"body\"],",
+							"            \"properties\": {",
+							"                \"postId\": {",
+							"                    \"type\": \"number\",",
+							"                },",
+							"                \"id\":  {",
+							"                    \"type\": \"number\"",
+							"                },",
+							"                \"name\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"email\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"body\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"            }",
+							"        },",
+							"\t\t\"postItems\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\", \"userId\", \"title\", \"body\"],",
+							"            \"properties\": {",
+							"                \"userId\": {",
+							"                    \"type\": \"number\",",
+							"                },",
+							"                \"id\":  {",
+							"                    \"type\": \"number\"",
+							"                },",
+							"                \"title\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"body\": {",
+							"                    \"type\": \"string\"",
+							"                }",
+							"            }",
+							"        }",
+							"\t}",
+							"});",
+							"",
+							"var schema = {",
+							"    \"type\": \"array\",",
+							"    \"items\": {\"$ref\": \"http://jsonplaceholder.typicode.com/posts/schema#/definitions/postItems\"}",
+							"};",
+							"",
+							"pm.test('Should `Posts Schema` be valid [Data Validation]', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://jsonplaceholder.typicode.com/posts",
+					"protocol": "http",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts By ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 [Regression]\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test('Should `Post Schema` be valid [Data Validation]', function () {",
+							"    var post_schema = {",
+							"        \"type\": \"object\",",
+							"        \"required\": [\"id\", \"userId\", \"title\", \"body\"],",
+							"        \"properties\": {",
+							"            \"userId\": {",
+							"                \"type\": \"number\",",
+							"            },",
+							"            \"id\":  {",
+							"                \"type\": \"number\"",
+							"            },",
+							"            \"title\": {",
+							"                \"type\": \"string\"",
+							"            },",
+							"            \"body\": {",
+							"                \"type\": \"string\"",
+							"            }",
+							"        }",
+							"    }",
+							"",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, post_schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://jsonplaceholder.typicode.com/posts/1",
+					"protocol": "http",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Posts -  Comments",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 [Regression]\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"tv4.addSchema(\"http://jsonplaceholder.typicode.com/posts/schema\", {",
+							"\t\"definitions\": {",
+							"\t\t\"commentItems\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\", \"postId\", \"name\", \"email\", \"body\"],",
+							"            \"properties\": {",
+							"                \"postId\": {",
+							"                    \"type\": \"number\",",
+							"                },",
+							"                \"id\":  {",
+							"                    \"type\": \"number\"",
+							"                },",
+							"                \"name\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"email\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"body\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"            }",
+							"        },",
+							"\t\t\"postItems\": {",
+							"            \"type\": \"object\",",
+							"            \"required\": [\"id\", \"userId\", \"title\", \"body\"],",
+							"            \"properties\": {",
+							"                \"userId\": {",
+							"                    \"type\": \"number\",",
+							"                },",
+							"                \"id\":  {",
+							"                    \"type\": \"number\"",
+							"                },",
+							"                \"title\": {",
+							"                    \"type\": \"string\"",
+							"                },",
+							"                \"body\": {",
+							"                    \"type\": \"string\"",
+							"                }",
+							"            }",
+							"        }",
+							"\t}",
+							"});",
+							"",
+							"var schema = {",
+							"    \"type\": \"array\",",
+							"    \"items\": {\"$ref\": \"http://jsonplaceholder.typicode.com/posts/schema#/definitions/commentItems\"}",
+							"};",
+							"",
+							"pm.test('Should `Post Comments Schema` be valid [Data Validation]', function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(tv4.validate(jsonData, schema)).to.be.true;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://jsonplaceholder.typicode.com/posts/1/comments",
+					"protocol": "http",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"1",
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201 [Regression]\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"",
+							"pm.test(\"Id Should not be null [Data Validation]\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.id).not.null",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://jsonplaceholder.typicode.com/posts",
+					"protocol": "http",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Posts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200 [Regression]\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://jsonplaceholder.typicode.com/posts/2",
+					"protocol": "http",
+					"host": [
+						"jsonplaceholder",
+						"typicode",
+						"com"
+					],
+					"path": [
+						"posts",
+						"2"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
