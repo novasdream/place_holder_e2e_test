@@ -20,4 +20,4 @@ npm run test
 
 O resultado devera ser semalhante ao abaixo.
 
-![Automated Collection Tests](https://github.com/novasdream/place_holder_e2e_test/blob/main/images/tests.gif)
+![Automated Collection Tests](https://github.com/novasdream/place_holder_e2e_test/blob/main/images/teste.gif)
