@@ -1,0 +1,14 @@
+{
+  "name": "place_holder_e2e_test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "newman run JSON-Place-Holder.postman_collection.json  -r cli,json,junit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "newman": "^5.2.1"
+  }
+}
